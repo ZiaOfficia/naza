@@ -1,13 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MapPin, Phone, ArrowRight, Sparkles } from "lucide-react";
+import { MapPin, Phone, ArrowRight, Sparkles, Store } from "lucide-react";
+import { usePopupForm } from "@/components/PopupFormContext";
 
 const scrollTo = (id: string) => {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 };
 
 export default function CTA() {
+  const { openForm } = usePopupForm();
+
   return (
     <section className="py-24 lg:py-32 bg-[#030B1A] relative overflow-hidden">
       {/* Grid */}
@@ -68,13 +71,27 @@ export default function CTA() {
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
             <button
-              onClick={() => scrollTo("shops")}
+              onClick={() => openForm("contact")}
               className="flex items-center gap-2.5 bg-white/8 border border-white/15 hover:bg-white/12 text-white font-semibold px-8 py-4 rounded-2xl backdrop-blur-sm transition-all hover:scale-105 active:scale-95 text-base"
             >
               <Phone className="w-5 h-5 text-[#22C55E]" />
               Contact Shops
             </button>
           </motion.div>
+
+          {/* Vendor link */}
+          <motion.button
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            viewport={{ once: true }}
+            onClick={() => openForm("vendor")}
+            className="group inline-flex items-center gap-2 text-white/50 hover:text-white text-sm font-medium mb-14 transition-colors"
+          >
+            <Store className="w-4 h-4 text-[#60A5FA]" />
+            Own a shop here? List it on Naza Market
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+          </motion.button>
 
           {/* Info strip */}
           <motion.div

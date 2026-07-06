@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Inter } from "next/font/google";
 import "./globals.css";
 import LenisProvider from "@/components/providers/LenisProvider";
+import { PopupFormProvider } from "@/components/PopupFormContext";
+import PopupForm from "@/components/PopupForm";
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
@@ -47,7 +49,10 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${inter.variable} antialiased`}
     >
       <body className="min-h-full bg-[#F8FAFC] text-[#0F172A] overflow-x-hidden">
-        <LenisProvider>{children}</LenisProvider>
+        <PopupFormProvider>
+          <LenisProvider>{children}</LenisProvider>
+          <PopupForm />
+        </PopupFormProvider>
       </body>
     </html>
   );

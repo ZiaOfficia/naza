@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Store, Menu, X, MapPin } from "lucide-react";
+import { usePopupForm } from "@/components/PopupFormContext";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -17,6 +17,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
+  const { openForm } = usePopupForm();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -122,6 +123,16 @@ export default function Navbar() {
               Lucknow
             </button>
             <button
+              onClick={() => openForm("vendor")}
+              className={`text-sm font-semibold px-4 py-2 rounded-xl border transition-all hover:scale-105 active:scale-95 ${
+                scrolled
+                  ? "border-[#E5E7EB] text-[#0F172A] hover:border-[#2563EB]/30"
+                  : "border-white/15 text-white hover:bg-white/10"
+              }`}
+            >
+              List Your Shop
+            </button>
+            <button
               onClick={() => scrollTo("#categories")}
               className="bg-[#2563EB] hover:bg-[#1d4ed8] text-white text-sm font-semibold px-5 py-2 rounded-xl transition-all hover:shadow-lg hover:shadow-blue-500/25 hover:scale-105 active:scale-95"
             >
@@ -168,12 +179,21 @@ export default function Navbar() {
                   {link.label}
                 </motion.button>
               ))}
-              <div className="mt-2 pt-2 border-t border-[#E5E7EB]">
+              <div className="mt-2 pt-2 border-t border-[#E5E7EB] flex flex-col gap-2">
                 <button
                   onClick={() => scrollTo("#categories")}
                   className="w-full bg-[#2563EB] text-white text-sm font-semibold px-5 py-3 rounded-xl hover:bg-[#1d4ed8] transition-colors"
                 >
                   Explore Market
+                </button>
+                <button
+                  onClick={() => {
+                    setMobileOpen(false);
+                    openForm("vendor");
+                  }}
+                  className="w-full border border-[#E5E7EB] text-[#0F172A] text-sm font-semibold px-5 py-3 rounded-xl hover:border-[#2563EB]/30 transition-colors"
+                >
+                  List Your Shop
                 </button>
               </div>
             </div>
