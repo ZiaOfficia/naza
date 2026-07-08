@@ -36,6 +36,9 @@ export const metadata: Metadata = {
       "120+ shops. 25+ years. Everything tech in one place.",
     type: "website",
   },
+  icons: {
+    icon: "/favicon.png",
+  },
 };
 
 export default function RootLayout({
